@@ -17,6 +17,8 @@ function App() {
   }
 
   testReq();
+  console.log("ID: " + import.meta.env.VITE_APP_ID);
+  console.log("Key: " + import.meta.env.VITE_APP_KEY);
 
   return (
     <>
