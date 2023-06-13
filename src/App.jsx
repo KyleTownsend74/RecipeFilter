@@ -1,10 +1,22 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import axios from 'axios'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  async function testReq() {
+    try {
+      const response = await axios.get('https://www.boredapi.com/api/activity/');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  testReq();
 
   return (
     <>
