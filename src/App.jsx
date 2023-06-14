@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import axios from 'axios'
+import Header from './components/Header.jsx'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   async function testReq() {
     try {
       const response = await axios.get('https://api.edamam.com/api/recipes/v2', {
@@ -24,7 +23,7 @@ function App() {
   // testReq();
 
   return (
-    <h1>Hello World</h1>
+    <Header/>
   )
 }
 
