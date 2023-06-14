@@ -1,0 +1,10 @@
+#main-container {
+    background-color: #4C3D3D;
+    margin: 0 auto;
+    margin-top: 15px;
+    width: 90%;
+    max-width: 900px;
+    flex: 1 1 auto;
+    min-height: 450px;
+    max-height: 800px;
+}

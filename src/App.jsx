@@ -1,6 +1,7 @@
 import axios from "axios"
-import Header from "./components/Header.jsx"
 import "./App.css"
+import Header from "./components/Header.jsx"
+import MainContainer from "./components/MainContainer.jsx";
 
 function App() {
     async function testReq() {
@@ -22,7 +23,11 @@ function App() {
     // testReq();
 
     return (
-        <Header/>
+        <div id="box">
+            <Header/>
+            <MainContainer/>
+            <div id="footer"></div>
+        </div>
     )
 }
 
