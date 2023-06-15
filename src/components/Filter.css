@@ -1,5 +1,20 @@
 #filter-box {
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
     border-bottom: 2px solid black;
+}
+
+#filter-box form {
+    display: flex;
+    justify-content: space-around;
+    padding: 18px 0;
+}
+
+#filter-box button {
+    /* note: change to different color when there is a filter active for a given button */
+    background-color: #FFD95A;
+    padding: 0.7em;
+    font-family: inherit;
+    font-weight: 500;
+    border-radius: 0.7em;
 }
