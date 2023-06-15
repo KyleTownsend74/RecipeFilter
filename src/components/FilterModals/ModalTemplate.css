@@ -21,6 +21,8 @@
 .modal-header {
     border-bottom: 1px solid black;
     padding-bottom: var(--vertical-padding);
+    color: white;
+    letter-spacing: 0.3px;
 }
 
 .modal-header h3 {
@@ -29,7 +31,11 @@
 }
 
 .modal-content {
-    padding: var(--vertical-padding) 0;
+    padding: var(--vertical-padding) 20px;
+    display: flex;
+    flex-direction: column;
+    max-height: 200px;
+    overflow-y: scroll;
 }
 
 .modal-footer {

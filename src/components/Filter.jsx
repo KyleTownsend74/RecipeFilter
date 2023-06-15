@@ -4,6 +4,7 @@ import ModalTemplate from "./FilterModals/ModalTemplate.jsx";
 
 function Filter() {
     const allergyDietContentId = "allergy-diet-modal";
+    const allergyDietTitle = "Allergy/Diet Filter";
 
     function showModal(id) {
         document.querySelector("#" + id).classList.remove("hidden");
@@ -12,8 +13,8 @@ function Filter() {
     return (
         <div id="filter-box">
             <form>
-                <ModalTemplate componentId={allergyDietContentId} contentComponent={<AllergyDietContent/>} title="Test Template"/>
-                <button onClick={() => showModal(allergyDietContentId)} type="button">Allergy/Diet Filter</button>
+                <ModalTemplate componentId={allergyDietContentId} contentComponent={<AllergyDietContent/>} title={allergyDietTitle}/>
+                <button onClick={() => showModal(allergyDietContentId)} type="button">{allergyDietTitle}</button>
                 <button type="button">Calories Filter</button>
                 <button type="button">Meal Type</button>
                 <button type="button">Cook/Prep Time</button>
