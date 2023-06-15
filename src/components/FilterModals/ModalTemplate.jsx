@@ -1,6 +1,11 @@
 import "./ModalTemplate.css";
 
 function ModalTemplate({ componentId, contentComponent, title }) {
+
+    function closeModal(id) {
+        document.querySelector("#" + id).classList.add("hidden");
+    }
+
     return (
         <div id={componentId} className="modal-container hidden">
             <div className="modal">
@@ -11,7 +16,7 @@ function ModalTemplate({ componentId, contentComponent, title }) {
                     {contentComponent}
                 </div>
                 <div className="modal-footer">
-                    <button type="button">Close</button>
+                    <button onClick={() => {closeModal(componentId)}} type="button">Close</button>
                 </div>
             </div>
         </div>
