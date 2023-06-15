@@ -1,8 +1,8 @@
 import "./ModalTemplate.css";
 
-function ModalTemplate({ contentComponent, title }) {
+function ModalTemplate({ componentId, contentComponent, title }) {
     return (
-        <div className="modal-container">
+        <div id={componentId} className="modal-container hidden">
             <div className="modal">
                 <div className="modal-header">
                     <h3>{title}</h3>
@@ -11,7 +11,7 @@ function ModalTemplate({ contentComponent, title }) {
                     {contentComponent}
                 </div>
                 <div className="modal-footer">
-                    <button>Close</button>
+                    <button type="button">Close</button>
                 </div>
             </div>
         </div>

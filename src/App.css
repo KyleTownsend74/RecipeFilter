@@ -17,3 +17,7 @@ button {
     font-weight: 500;
     border-radius: 0.7em;
 }
+
+.hidden {
+    display: none;
+}
