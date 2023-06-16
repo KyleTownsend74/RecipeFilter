@@ -1,6 +1,6 @@
 import "./AllergyDietContent.css";
 
-function AllergyDietContent() {
+function AllergyDietContent({ addItem, removeItem }) {
     const allergyDietList = [
         {
             id: "alcohol-free",
@@ -147,7 +147,12 @@ function AllergyDietContent() {
     );
 
     function updateFilter(e) {
-        console.log(e.target.id, e.target.checked);
+        if(e.target.checked) {
+            addItem(e.target.id);
+        }
+        else {
+            removeItem(e.target.id);
+        }
     }
 
     return (
