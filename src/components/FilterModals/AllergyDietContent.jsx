@@ -55,10 +55,6 @@ function AllergyDietContent({ addItem, removeItem }) {
             displayName: "Kosher"
         },
         {
-            id: "low-fat-abs",
-            displayName: "Low Fat"
-        },
-        {
             id: "low-potassium",
             displayName: "Low Potassium"
         },
