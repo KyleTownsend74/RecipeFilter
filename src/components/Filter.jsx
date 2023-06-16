@@ -4,7 +4,7 @@ import axios from "axios"
 import AllergyDietContent from "./FilterModals/AllergyDietContent.jsx";
 import ModalTemplate from "./FilterModals/ModalTemplate.jsx";
 
-function Filter() {
+function Filter({ setRecipes }) {
     const [allergyDietFilter, setAllergyDietFilter] = useState([]);
 
     const allergyDietContentId = "allergy-diet-modal";
@@ -42,11 +42,11 @@ function Filter() {
             allergyDietFilter.forEach(item => {
                 params.append("health", item);
             });
-
             const response = await axios.get("https://api.edamam.com/api/recipes/v2", {
                 params: params
             });
-            console.log(response);
+
+            setRecipes(response.data.hits);
         } catch (error) {
             console.error(error);
         }
