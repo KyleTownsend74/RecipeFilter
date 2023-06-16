@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Filter.css"
+import axios from "axios"
 import AllergyDietContent from "./FilterModals/AllergyDietContent.jsx";
 import ModalTemplate from "./FilterModals/ModalTemplate.jsx";
 
@@ -32,6 +33,25 @@ function Filter() {
         document.querySelector("#" + id).classList.remove("hidden");
     }
 
+    async function submit() {
+        try {
+            const params = new URLSearchParams();
+            params.append("type", "public");
+            params.append("app_id", import.meta.env.VITE_APP_ID);
+            params.append("app_key", import.meta.env.VITE_APP_KEY);
+            allergyDietFilter.forEach(item => {
+                params.append("health", item);
+            });
+
+            const response = await axios.get("https://api.edamam.com/api/recipes/v2", {
+                params: params
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <div id="filter-box">
             <form>
@@ -41,7 +61,7 @@ function Filter() {
                 <button type="button">Calories Filter</button>
                 <button type="button">Meal Type</button>
                 <button type="button">Cook/Prep Time</button>
-                <button id="filter-submit" type="submit">Submit</button>
+                <button id="filter-submit" onClick={submit} type="button">Submit</button>
             </form>
         </div>
     )
