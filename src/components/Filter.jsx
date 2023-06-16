@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Filter.css"
 import AllergyDietContent from "./FilterModals/AllergyDietContent.jsx";
 import ModalTemplate from "./FilterModals/ModalTemplate.jsx";
@@ -8,6 +8,15 @@ function Filter() {
 
     const allergyDietContentId = "allergy-diet-modal";
     const allergyDietTitle = "Allergy/Diet Filter";
+
+    useEffect(() => {
+        if(allergyDietFilter.length === 0) {
+            document.querySelector("#filter-submit").disabled = true;
+        }
+        else {
+            document.querySelector("#filter-submit").disabled = false;
+        }
+    }, [allergyDietFilter]);
 
     function addAllergyDietFilter(item) {
         if(allergyDietFilter.indexOf(item) === -1) {
@@ -32,7 +41,7 @@ function Filter() {
                 <button type="button">Calories Filter</button>
                 <button type="button">Meal Type</button>
                 <button type="button">Cook/Prep Time</button>
-                <button type="submit">Submit</button>
+                <button id="filter-submit" type="submit">Submit</button>
             </form>
         </div>
     )
