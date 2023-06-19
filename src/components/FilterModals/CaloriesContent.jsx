@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CaloriesContent.css";
 
-function CaloriesContent({ changeMin, changeMax }) {
+function CaloriesContent({ parentId, changeMin, changeMax }) {
     const [min, setMin] = useState(0);
     const [max, setMax] = useState(3000);
 
@@ -28,9 +28,11 @@ function CaloriesContent({ changeMin, changeMax }) {
 
         if(curValue > max) {
             errorElement.classList.remove("hidden");
+            document.querySelector(`#${parentId} button`).disabled = true;
         }
         else {
             errorElement.classList.add("hidden");
+            document.querySelector(`#${parentId} button`).disabled = false;
         }
     }
 
@@ -46,9 +48,11 @@ function CaloriesContent({ changeMin, changeMax }) {
         
         if(curValue < min) {
             errorElement.classList.remove("hidden");
+            document.querySelector(`#${parentId} button`).disabled = true;
         }
         else {
             errorElement.classList.add("hidden");
+            document.querySelector(`#${parentId} button`).disabled = false;
         }
     }
 

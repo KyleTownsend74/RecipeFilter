@@ -63,7 +63,7 @@ function Filter({ setRecipes }) {
                 <ModalTemplate componentId={allergyDietContentId} contentComponent={<AllergyDietContent 
                         addItem={addAllergyDietFilter} removeItem={removeAllergyDietFilter}/>} title={allergyDietTitle}/>
                 <button onClick={() => showModal(allergyDietContentId)} type="button">{allergyDietTitle}</button>
-                <ModalTemplate componentId={caloriesContentId} contentComponent={<CaloriesContent
+                <ModalTemplate componentId={caloriesContentId} contentComponent={<CaloriesContent parentId={caloriesContentId}
                         changeMin={changeMinCalories} changeMax={changeMaxCalories} />} title={caloriesTitle}/>
                 <button onClick={() => showModal(caloriesContentId)} type="button">{caloriesTitle}</button>
                 <button type="button">Meal Type</button>
