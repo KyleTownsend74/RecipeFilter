@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CaloriesContent.css";
 
-function CaloriesContent() {
+function CaloriesContent({ changeMin, changeMax }) {
     const [min, setMin] = useState(0);
     const [max, setMax] = useState(3000);
 
     const minId = "cal-min";
     const maxId = "cal-max";
+
+    useEffect(() => {
+        changeMin(min);
+    }, [min]);
+
+    useEffect(() => {
+        changeMax(max);
+    }, [max]);
 
     function minChange(e) {
         if(!e.target.validity.valid) {

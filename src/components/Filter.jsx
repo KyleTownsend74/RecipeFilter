@@ -7,6 +7,8 @@ import CaloriesContent from "./FilterModals/CaloriesContent";
 
 function Filter({ setRecipes }) {
     const [allergyDietFilter, setAllergyDietFilter] = useState([]);
+    const [minCalories, setMinCalories] = useState(0);
+    const [maxCalories, setMaxCalories] = useState(0);
 
     const allergyDietContentId = "allergy-diet-modal";
     const allergyDietTitle = "Allergy/Diet Filter";
@@ -32,6 +34,14 @@ function Filter({ setRecipes }) {
         setAllergyDietFilter(allergyDietFilter.filter(curItem => curItem !== item));
     }
 
+    function changeMinCalories(calories) {
+        setMinCalories(calories);
+    }
+
+    function changeMaxCalories(calories) {
+        setMaxCalories(calories);
+    }
+
     function showModal(id) {
         document.querySelector("#" + id).classList.remove("hidden");
     }
@@ -42,6 +52,7 @@ function Filter({ setRecipes }) {
             params.append("type", "public");
             params.append("app_id", import.meta.env.VITE_APP_ID);
             params.append("app_key", import.meta.env.VITE_APP_KEY);
+            params.append("calories", `${minCalories}-${maxCalories}`)
             allergyDietFilter.forEach(item => {
                 params.append("health", item);
             });
@@ -61,7 +72,8 @@ function Filter({ setRecipes }) {
                 <ModalTemplate componentId={allergyDietContentId} contentComponent={<AllergyDietContent 
                         addItem={addAllergyDietFilter} removeItem={removeAllergyDietFilter}/>} title={allergyDietTitle}/>
                 <button onClick={() => showModal(allergyDietContentId)} type="button">{allergyDietTitle}</button>
-                <ModalTemplate componentId={caloriesContentId} contentComponent={<CaloriesContent/>} title={caloriesTitle}/>
+                <ModalTemplate componentId={caloriesContentId} contentComponent={<CaloriesContent
+                        changeMin={changeMinCalories} changeMax={changeMaxCalories} />} title={caloriesTitle}/>
                 <button onClick={() => showModal(caloriesContentId)} type="button">{caloriesTitle}</button>
                 <button type="button">Meal Type</button>
                 <button type="button">Cook/Prep Time</button>
