@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Filter.css"
 import axios from "axios"
 import AllergyDietContent from "./FilterModals/AllergyDietContent.jsx";
@@ -14,15 +14,6 @@ function Filter({ setRecipes }) {
     const allergyDietTitle = "Allergy/Diet Filter";
     const caloriesContentId = "calories-modal";
     const caloriesTitle = "Calories Filter";
-
-    useEffect(() => {
-        if(allergyDietFilter.length === 0) {
-            document.querySelector("#filter-submit").disabled = true;
-        }
-        else {
-            document.querySelector("#filter-submit").disabled = false;
-        }
-    }, [allergyDietFilter]);
 
     function addAllergyDietFilter(item) {
         if(allergyDietFilter.indexOf(item) === -1) {
