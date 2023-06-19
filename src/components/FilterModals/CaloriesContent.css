@@ -2,3 +2,20 @@
     margin: 5px 0;
     font-family: inherit;
 }
+
+.calories-label {
+    color: white;
+}
+
+#calories-error {
+    width: 150px;
+    margin: 0;
+    text-align: center;
+    font-style: italic;
+    color: red;
+}
+
+#calories-error.hidden {
+    visibility: hidden;
+    height: 0;
+}
