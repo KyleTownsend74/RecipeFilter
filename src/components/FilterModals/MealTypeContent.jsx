@@ -1,3 +1,5 @@
+import "./MealTypeContent.css"
+
 function MealTypeContent() {
     return (
         <select id="meal-type-select">
