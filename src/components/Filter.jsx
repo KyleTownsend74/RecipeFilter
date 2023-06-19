@@ -4,6 +4,7 @@ import axios from "axios"
 import AllergyDietContent from "./FilterModals/AllergyDietContent.jsx";
 import ModalTemplate from "./FilterModals/ModalTemplate.jsx";
 import CaloriesContent from "./FilterModals/CaloriesContent";
+import MealTypeContent from "./FilterModals/MealTypeContent";
 
 function Filter({ setRecipes }) {
     const [allergyDietFilter, setAllergyDietFilter] = useState([]);
@@ -14,6 +15,8 @@ function Filter({ setRecipes }) {
     const allergyDietTitle = "Allergy/Diet Filter";
     const caloriesContentId = "calories-modal";
     const caloriesTitle = "Calories Filter";
+    const mealTypeContentId = "meal-type-modal";
+    const mealTypeTitle = "Meal Type";
 
     function addAllergyDietFilter(item) {
         if(allergyDietFilter.indexOf(item) === -1) {
@@ -63,10 +66,14 @@ function Filter({ setRecipes }) {
                 <ModalTemplate componentId={allergyDietContentId} contentComponent={<AllergyDietContent 
                         addItem={addAllergyDietFilter} removeItem={removeAllergyDietFilter}/>} title={allergyDietTitle}/>
                 <button onClick={() => showModal(allergyDietContentId)} type="button">{allergyDietTitle}</button>
+
                 <ModalTemplate componentId={caloriesContentId} contentComponent={<CaloriesContent parentId={caloriesContentId}
                         changeMin={changeMinCalories} changeMax={changeMaxCalories} />} title={caloriesTitle}/>
                 <button onClick={() => showModal(caloriesContentId)} type="button">{caloriesTitle}</button>
-                <button type="button">Meal Type</button>
+
+                <ModalTemplate componentId={mealTypeContentId} contentComponent={<MealTypeContent/>} title={mealTypeTitle}/>
+                <button onClick={() => showModal(mealTypeContentId)} type="button">{mealTypeTitle}</button>
+
                 <button type="button">Cook/Prep Time</button>
                 <button id="filter-submit" onClick={submit} type="button">Submit</button>
             </form>
