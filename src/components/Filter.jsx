@@ -12,6 +12,8 @@ function Filter({ setRecipes }) {
     const [minCalories, setMinCalories] = useState(0);
     const [maxCalories, setMaxCalories] = useState(0);
     const [mealType, setMealType] = useState("All");
+    const [minTime, setMinTime] = useState(0);
+    const [maxTime, setMaxTime] = useState(0);
 
     const allergyDietContentId = "allergy-diet-modal";
     const allergyDietTitle = "Allergy/Diet Filter";
@@ -44,6 +46,14 @@ function Filter({ setRecipes }) {
         setMealType(newMealType);
     }
 
+    function changeMinTime(minutes) {
+        setMinTime(minutes);
+    }
+
+    function changeMaxTime(minutes) {
+        setMaxTime(minutes);
+    }
+
     function showModal(id) {
         document.querySelector("#" + id).classList.remove("hidden");
     }
@@ -56,6 +66,7 @@ function Filter({ setRecipes }) {
             params.append("app_id", import.meta.env.VITE_APP_ID);
             params.append("app_key", import.meta.env.VITE_APP_KEY);
             params.append("calories", `${minCalories}-${maxCalories}`);
+            params.append("time", `${minTime}-${maxTime}`);
             allergyDietFilter.forEach(item => {
                 params.append("health", item);
             });
@@ -89,8 +100,8 @@ function Filter({ setRecipes }) {
                         changeSelection={changeMealType}/>} title={mealTypeTitle}/>
                 <button onClick={() => showModal(mealTypeContentId)} type="button">{mealTypeTitle}</button>
 
-                <ModalTemplate componentId={cookTimeContentId} contentComponent={<CookTimeContent 
-                        parentId={cookTimeContentId}/>} title={cookTimeTitle}/>
+                <ModalTemplate componentId={cookTimeContentId} contentComponent={<CookTimeContent parentId={cookTimeContentId}
+                        changeMin={changeMinTime} changeMax={changeMaxTime}/>} title={cookTimeTitle}/>
                 <button onClick={() => showModal(cookTimeContentId)} type="button">{cookTimeTitle}</button>
 
                 <button id="filter-submit" onClick={submit} type="button">Submit</button>

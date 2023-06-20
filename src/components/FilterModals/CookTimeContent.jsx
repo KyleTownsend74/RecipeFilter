@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import "./CookTimeContent.css";
 
 function CookTimeContent({ parentId, changeMin, changeMax }) {
+    // Time in minutes
     const [min, setMin] = useState(0);
-    const [max, setMax] = useState(3000);
+    const [max, setMax] = useState(1000);
 
     const minId = "time-min";
     const maxId = "time-max";
 
-    // useEffect(() => {
-    //     changeMin(min);
-    // }, [min]);
+    useEffect(() => {
+        changeMin(min);
+    }, [min]);
 
-    // useEffect(() => {
-    //     changeMax(max);
-    // }, [max]);
+    useEffect(() => {
+        changeMax(max);
+    }, [max]);
 
     function minChange(e) {
         if(!e.target.validity.valid) {
