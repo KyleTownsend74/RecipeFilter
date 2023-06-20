@@ -7,7 +7,7 @@ import CaloriesContent from "./FilterModals/CaloriesContent";
 import MealTypeContent from "./FilterModals/MealTypeContent";
 import CookTimeContent from "./FilterModals/CookTimeContent";
 
-function Filter({ setRecipes }) {
+function Filter({ setRecipes, setLoading }) {
     const [allergyDietFilter, setAllergyDietFilter] = useState([]);
     const [minCalories, setMinCalories] = useState(0);
     const [maxCalories, setMaxCalories] = useState(0);
@@ -60,6 +60,8 @@ function Filter({ setRecipes }) {
 
     async function submit() {
         try {
+            setLoading(true);
+
             const params = new URLSearchParams();
 
             params.append("type", "public");
@@ -80,6 +82,7 @@ function Filter({ setRecipes }) {
             });
 
             setRecipes(response.data.hits);
+            setLoading(false);
         } catch (error) {
             console.error(error);
         }
