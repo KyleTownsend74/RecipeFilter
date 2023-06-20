@@ -1,0 +1,21 @@
+.time-input {
+    margin: 5px 0;
+    font-family: inherit;
+}
+
+.time-label {
+    color: white;
+}
+
+#time-error {
+    width: 150px;
+    margin: 0;
+    text-align: center;
+    font-style: italic;
+    color: red;
+}
+
+#time-error.hidden {
+    visibility: hidden;
+    height: 0;
+}

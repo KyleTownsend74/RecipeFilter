@@ -5,6 +5,7 @@ import AllergyDietContent from "./FilterModals/AllergyDietContent.jsx";
 import ModalTemplate from "./FilterModals/ModalTemplate.jsx";
 import CaloriesContent from "./FilterModals/CaloriesContent";
 import MealTypeContent from "./FilterModals/MealTypeContent";
+import CookTimeContent from "./FilterModals/CookTimeContent";
 
 function Filter({ setRecipes }) {
     const [allergyDietFilter, setAllergyDietFilter] = useState([]);
@@ -18,6 +19,8 @@ function Filter({ setRecipes }) {
     const caloriesTitle = "Calories Filter";
     const mealTypeContentId = "meal-type-modal";
     const mealTypeTitle = "Meal Type";
+    const cookTimeContentId = "cook-time-modal";
+    const cookTimeTitle = "Cook/Prep Time";
 
     function addAllergyDietFilter(item) {
         if(allergyDietFilter.indexOf(item) === -1) {
@@ -86,7 +89,10 @@ function Filter({ setRecipes }) {
                         changeSelection={changeMealType}/>} title={mealTypeTitle}/>
                 <button onClick={() => showModal(mealTypeContentId)} type="button">{mealTypeTitle}</button>
 
-                <button type="button">Cook/Prep Time</button>
+                <ModalTemplate componentId={cookTimeContentId} contentComponent={<CookTimeContent 
+                        parentId={cookTimeContentId}/>} title={cookTimeTitle}/>
+                <button onClick={() => showModal(cookTimeContentId)} type="button">{cookTimeTitle}</button>
+
                 <button id="filter-submit" onClick={submit} type="button">Submit</button>
             </form>
         </div>
