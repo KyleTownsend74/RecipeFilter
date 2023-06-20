@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Filter from "./Filter"
 import "./MainContainer.css"
+import RecipeContainer from "./RecipeContainer";
 
 function MainContainer() {
     const [recipes, setRecipes] = useState([]);
@@ -16,6 +17,7 @@ function MainContainer() {
     return (
         <div id="main-container">
             <Filter setRecipes={setDisplayedRecipes}/>
+            <RecipeContainer recipes={recipes}/>
         </div>
     )
 }
