@@ -10,6 +10,7 @@ function Filter({ setRecipes }) {
     const [allergyDietFilter, setAllergyDietFilter] = useState([]);
     const [minCalories, setMinCalories] = useState(0);
     const [maxCalories, setMaxCalories] = useState(0);
+    const [mealType, setMealType] = useState("All");
 
     const allergyDietContentId = "allergy-diet-modal";
     const allergyDietTitle = "Allergy/Diet Filter";
@@ -36,6 +37,10 @@ function Filter({ setRecipes }) {
         setMaxCalories(calories);
     }
 
+    function changeMealType(newMealType) {
+        setMealType(newMealType);
+    }
+
     function showModal(id) {
         document.querySelector("#" + id).classList.remove("hidden");
     }
@@ -43,13 +48,19 @@ function Filter({ setRecipes }) {
     async function submit() {
         try {
             const params = new URLSearchParams();
+
             params.append("type", "public");
             params.append("app_id", import.meta.env.VITE_APP_ID);
             params.append("app_key", import.meta.env.VITE_APP_KEY);
-            params.append("calories", `${minCalories}-${maxCalories}`)
+            params.append("calories", `${minCalories}-${maxCalories}`);
             allergyDietFilter.forEach(item => {
                 params.append("health", item);
             });
+
+            if(mealType !== "All") {
+                params.append("mealType", mealType);
+            }
+
             const response = await axios.get("https://api.edamam.com/api/recipes/v2", {
                 params: params
             });
@@ -71,7 +82,8 @@ function Filter({ setRecipes }) {
                         changeMin={changeMinCalories} changeMax={changeMaxCalories} />} title={caloriesTitle}/>
                 <button onClick={() => showModal(caloriesContentId)} type="button">{caloriesTitle}</button>
 
-                <ModalTemplate componentId={mealTypeContentId} contentComponent={<MealTypeContent/>} title={mealTypeTitle}/>
+                <ModalTemplate componentId={mealTypeContentId} contentComponent={<MealTypeContent
+                        changeSelection={changeMealType}/>} title={mealTypeTitle}/>
                 <button onClick={() => showModal(mealTypeContentId)} type="button">{mealTypeTitle}</button>
 
                 <button type="button">Cook/Prep Time</button>

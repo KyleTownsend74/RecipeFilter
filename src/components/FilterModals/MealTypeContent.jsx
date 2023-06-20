@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./MealTypeContent.css"
 
-function MealTypeContent() {
-    const [selection, setSelection] = useState("all");
+function MealTypeContent({ changeSelection }) {
+    const [selection, setSelection] = useState("All");
+
+    useEffect(() => {
+        changeSelection(selection);
+    }, [selection]);
 
     return (
         <select onChange={(e) => {setSelection(e.target.value)}} id="meal-type-select">
-            <option value="all">All</option>
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
-            <option value="snack">Snack</option>
+            <option value="All">All</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Snack">Snack</option>
         </select>
     )
 }
