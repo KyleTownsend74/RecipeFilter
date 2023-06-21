@@ -64,14 +64,19 @@ function Filter({ setRecipes, setLoading }) {
         return curRecipe.recipe.source !== "Serious Eats";
     }
 
-    // Additional network requests to perform when not enough recipes were initially
-    // returned after filtering out some sources
-    async function additionalRequests(curLength, nextUrl) {
-        const lengthLeft = recipeArrayLength - curLength;
+    async function makeRequest(curRecipesLength, url, params) {
+        const lengthLeft = recipeArrayLength - curRecipesLength;
         let response;
 
         try{
-            response = await axios.get(nextUrl);
+            if(params) {
+                response = await axios.get(url, {
+                    params: params
+                });
+            }
+            else {
+                response = await axios.get(url);
+            }
         } catch(error) {
             console.log(error);
             return [];
@@ -80,12 +85,13 @@ function Filter({ setRecipes, setLoading }) {
         let recipes = response.data.hits.filter(filterSource);
         const arrLength = recipes.length;
 
-        // If there is still not enough recipes, continue making requests
+        // If there are not enough recipes, continue making requests
         if(arrLength < lengthLeft) {
             const nextObj = response.data._links.next;
 
+            // If there is no nextObj, there are no more recipes to return
             if(nextObj) {
-                const moreRecipes = await additionalRequests(curLength + arrLength, nextObj.href);
+                const moreRecipes = await makeRequest(curRecipesLength + arrLength, nextObj.href, null);
                 recipes.push(...moreRecipes);
             }
         }
@@ -93,47 +99,28 @@ function Filter({ setRecipes, setLoading }) {
         return recipes;
     }
 
-    // Network request when user presses "Submit"
     async function submit() {
-        try {
-            setLoading(true);
+        setLoading(true);
 
-            const params = new URLSearchParams();
+        const params = new URLSearchParams();
 
-            params.append("type", "public");
-            params.append("app_id", import.meta.env.VITE_APP_ID);
-            params.append("app_key", import.meta.env.VITE_APP_KEY);
-            params.append("calories", `${minCalories}-${maxCalories}`);
-            params.append("time", `${minTime}-${maxTime}`);
-            allergyDietFilter.forEach(item => {
-                params.append("health", item);
-            });
+        params.append("type", "public");
+        params.append("app_id", import.meta.env.VITE_APP_ID);
+        params.append("app_key", import.meta.env.VITE_APP_KEY);
+        params.append("calories", `${minCalories}-${maxCalories}`);
+        params.append("time", `${minTime}-${maxTime}`);
+        allergyDietFilter.forEach(item => {
+            params.append("health", item);
+        });
 
-            if(mealType !== "All") {
-                params.append("mealType", mealType);
-            }
-
-            const response = await axios.get("https://api.edamam.com/api/recipes/v2", {
-                params: params
-            });
-            let recipes = response.data.hits.filter(filterSource);
-            const arrLength = recipes.length;
-
-            if(arrLength < recipeArrayLength) {
-                const nextObj = response.data._links.next;
-
-                // If there is no nextObj, there are no more recipes to return
-                if(nextObj) {
-                    const moreRecipes = await additionalRequests(arrLength, nextObj.href);
-                    recipes.push(...moreRecipes);
-                }
-            }
-
-            setRecipes(recipes.slice(0, recipeArrayLength));
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
+        if(mealType !== "All") {
+            params.append("mealType", mealType);
         }
+
+        const recipes = await makeRequest(0, "https://api.edamam.com/api/recipes/v2", params);
+
+        setRecipes(recipes.slice(0, recipeArrayLength));
+        setLoading(false);
     }
 
     return (
