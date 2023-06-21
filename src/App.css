@@ -10,12 +10,15 @@
 }
 
 button {
-    /* note: change to different color when there is a filter active for a given button */
     background-color: #FFD95A;
     padding: 0.7em;
     font-family: inherit;
     font-weight: 500;
     border-radius: 0.7em;
+}
+
+button:enabled {
+    cursor: pointer;
 }
 
 button:disabled {
