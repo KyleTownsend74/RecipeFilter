@@ -7,7 +7,7 @@ function App() {
         <div id="box">
             <Header/>
             <MainContainer/>
-            <div id="footer"></div>
+            <div id="edamam-badge" data-color="transparent"></div>
         </div>
     )
 }
