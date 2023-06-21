@@ -23,6 +23,7 @@ function Filter({ setRecipes, setLoading }) {
     const mealTypeTitle = "Meal Type";
     const cookTimeContentId = "cook-time-modal";
     const cookTimeTitle = "Cook/Prep Time";
+    const recipeArrayLength = 12;
 
     function addAllergyDietFilter(item) {
         if(allergyDietFilter.indexOf(item) === -1) {
@@ -58,6 +59,41 @@ function Filter({ setRecipes, setLoading }) {
         document.querySelector("#" + id).classList.remove("hidden");
     }
 
+    function filterSource(curRecipe) {
+        // "Serious Eats" source known for not having reliable links, so filter it out
+        return curRecipe.recipe.source !== "Serious Eats";
+    }
+
+    // Additional network requests to perform when not enough recipes were initially
+    // returned after filtering out some sources
+    async function additionalRequests(curLength, nextUrl) {
+        const lengthLeft = recipeArrayLength - curLength;
+        let response;
+
+        try{
+            response = await axios.get(nextUrl);
+        } catch(error) {
+            console.log(error);
+            return [];
+        }
+
+        let recipes = response.data.hits.filter(filterSource);
+        const arrLength = recipes.length;
+
+        // If there is still not enough recipes, continue making requests
+        if(arrLength < lengthLeft) {
+            const nextObj = response.data._links.next;
+
+            if(nextObj) {
+                const moreRecipes = await additionalRequests(curLength + arrLength, nextObj.href);
+                recipes.push(...moreRecipes);
+            }
+        }
+
+        return recipes;
+    }
+
+    // Network request when user presses "Submit"
     async function submit() {
         try {
             setLoading(true);
@@ -80,10 +116,20 @@ function Filter({ setRecipes, setLoading }) {
             const response = await axios.get("https://api.edamam.com/api/recipes/v2", {
                 params: params
             });
-            const recipes = response.data.hits;
+            let recipes = response.data.hits.filter(filterSource);
+            const arrLength = recipes.length;
 
-            // "Serious Eats" source known for not having reliable links, so filter it out
-            setRecipes(recipes.filter(curRecipe => curRecipe.recipe.source !== "Serious Eats"));
+            if(arrLength < recipeArrayLength) {
+                const nextObj = response.data._links.next;
+
+                // If there is no nextObj, there are no more recipes to return
+                if(nextObj) {
+                    const moreRecipes = await additionalRequests(arrLength, nextObj.href);
+                    recipes.push(...moreRecipes);
+                }
+            }
+
+            setRecipes(recipes.slice(0, recipeArrayLength));
             setLoading(false);
         } catch (error) {
             console.error(error);
