@@ -1,0 +1,10 @@
+#disclaimer {
+    margin: 0 auto;
+    margin-top: 8px;
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+    font-style: italic;
+    font-size: 14px;
+    color: rgb(54, 54, 54);
+}
