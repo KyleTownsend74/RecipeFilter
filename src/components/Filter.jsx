@@ -80,8 +80,10 @@ function Filter({ setRecipes, setLoading }) {
             const response = await axios.get("https://api.edamam.com/api/recipes/v2", {
                 params: params
             });
+            const recipes = response.data.hits;
 
-            setRecipes(response.data.hits);
+            // "Serious Eats" source known for not having reliable links, so filter it out
+            setRecipes(recipes.filter(curRecipe => curRecipe.recipe.source !== "Serious Eats"));
             setLoading(false);
         } catch (error) {
             console.error(error);
