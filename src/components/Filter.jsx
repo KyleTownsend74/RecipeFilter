@@ -60,8 +60,10 @@ function Filter({ setRecipes, setLoading }) {
     }
 
     function filterSource(curRecipe) {
-        // "Serious Eats" source known for not having reliable links, so filter it out
-        return curRecipe.recipe.source !== "Serious Eats";
+        const source = curRecipe.recipe.source;
+
+        // "Serious Eats" and "Ruhlman" sources known for not having reliable links, so filter out
+        return source !== "Serious Eats" && source !== "Ruhlman";
     }
 
     async function makeRequest(curRecipesLength, url, params) {
