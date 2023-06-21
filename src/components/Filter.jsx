@@ -111,6 +111,7 @@ function Filter({ setRecipes, setLoading }) {
         params.append("app_key", import.meta.env.VITE_APP_KEY);
         params.append("calories", `${minCalories}-${maxCalories}`);
         params.append("time", `${minTime}-${maxTime}`);
+        params.append("random", true);
         allergyDietFilter.forEach(item => {
             params.append("health", item);
         });
