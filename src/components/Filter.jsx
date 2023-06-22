@@ -103,6 +103,7 @@ function Filter({ setRecipes, setLoading }) {
 
     async function submit() {
         setLoading(true);
+        setRecipes([]);
 
         const params = new URLSearchParams();
 
