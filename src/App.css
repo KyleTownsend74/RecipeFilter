@@ -12,7 +12,8 @@ button {
     background-color: #FFD95A;
     padding: 0.7em;
     font-family: inherit;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: inherit;
     border-radius: 0.7em;
 }
 

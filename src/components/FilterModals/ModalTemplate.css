@@ -23,12 +23,12 @@
     border-bottom: 1px solid black;
     padding-bottom: var(--vertical-padding);
     color: white;
-    letter-spacing: 0.3px;
 }
 
 .modal-header h3 {
     text-align: center;
     margin: 0;
+    font-weight: 600;
 }
 
 .modal-content {
