@@ -5,6 +5,11 @@
     margin: 10px;
     text-align: center;
     box-shadow: 1px 1px 5px black;
+    transition: transform 0.2s;
+}
+
+.recipe-item:hover, .recipe-item:active {
+    transform: translateY(-4px);
 }
 
 .recipe-item img {
