@@ -1,6 +1,7 @@
 #filter-box {
     width: 100%;
     border-bottom: 2px solid black;
+    background-color: #4C3D3D;
 }
 
 #filter-box form {
